@@ -11,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IImageRepository, LocalStorageImageRepository>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 // configure cores

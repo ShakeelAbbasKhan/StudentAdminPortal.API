@@ -52,6 +52,7 @@ namespace StudentAdminPortal.API.Repositories
         public async Task<Student> AddStudentAsync(Student student)
         {
             var addStd = await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
             return student;
         }
 
@@ -76,6 +77,19 @@ namespace StudentAdminPortal.API.Repositories
 
 
             return null;
+        }
+
+        public async Task<bool> UpdateProfileImage(Guid studentId, string profileImageUrl)
+        {
+            var student = await GetStudentAsync(studentId);
+            if(student != null)
+            {
+                student.ProfileImageUrl = profileImageUrl;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }
